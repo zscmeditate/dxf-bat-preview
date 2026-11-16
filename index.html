@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DXF 批量预览</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <header class="toolbar">
+    <div class="brand"><span class="brand-dot"></span>DXF 预览</div>
+    <button id="pick" class="btn primary" type="button">选择目录</button>
+    <input id="dir-input" type="file" webkitdirectory multiple hidden />
+
+    <label class="field">
+      <span>布局</span>
+      <select id="layout">
+        <option value="1x1">1 × 1（1 张）</option>
+        <option value="2x2" selected>2 × 2（4 张）</option>
+        <option value="3x3">3 × 3（9 张）</option>
+        <option value="4x4">4 × 4（16 张）</option>
+        <option value="5x5">5 × 5（25 张）</option>
+        <option value="6x6">6 × 6（36 张）</option>
+      </select>
+    </label>
+
+    <span id="stats" class="stats">未选择目录</span>
+
+    <div class="spacer"></div>
+
+    <div class="pager">
+      <button id="prev" class="btn icon" type="button" title="上一页（←）" disabled>‹</button>
+      <span id="page-info" class="page-info">0 / 0</span>
+      <button id="next" class="btn icon" type="button" title="下一页（→）" disabled>›</button>
+    </div>
+  </header>
+
+  <div id="progress" class="progress hidden">
+    <div id="progress-text" class="progress-text"></div>
+    <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+  </div>
+
+  <main id="grid"></main>
+
+  <section id="empty" class="empty">
+    <h2 id="empty-title">选择一个 DXF 目录</h2>
+    <p id="empty-text">目录下所有 DXF 会按当前布局平铺预览，点击任意一张可放大查看。</p>
+    <button id="pick-empty" class="btn primary lg" type="button">选择目录</button>
+    <p class="hint">推荐使用 Chrome / Edge 浏览器</p>
+  </section>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <span id="modal-title" class="modal-title"></span>
+        <div class="modal-actions">
+          <span class="modal-tip">滚轮缩放 · 拖拽平移 · 双击适应</span>
+          <button id="modal-fit" class="btn sm" type="button">适应窗口</button>
+          <button id="modal-close" class="btn icon" type="button" title="关闭（Esc）">×</button>
+        </div>
+      </div>
+      <div id="stage"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
