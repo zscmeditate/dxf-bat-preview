@@ -10,30 +10,33 @@
   <canvas id="gl"></canvas>
 
   <header class="toolbar">
-    <div class="brand"><span class="brand-dot"></span>DXF 预览</div>
-    <button id="pick" class="btn primary" type="button">选择目录</button>
-    <input id="dir-input" type="file" webkitdirectory multiple hidden />
+    <div class="tb-side">
+      <div class="brand"><span class="brand-dot"></span>DXF批量预览</div>
+      <button id="pick" class="btn primary" type="button">选择目录</button>
+      <input id="dir-input" type="file" webkitdirectory multiple hidden />
+    </div>
 
-    <label class="field">
-      <span>布局</span>
-      <select id="layout">
-        <option value="1x1">1 × 1（1 张）</option>
-        <option value="2x2" selected>2 × 2（4 张）</option>
-        <option value="3x3">3 × 3（9 张）</option>
-        <option value="4x4">4 × 4（16 张）</option>
-        <option value="5x5">5 × 5（25 张）</option>
-        <option value="6x6">6 × 6（36 张）</option>
-      </select>
-    </label>
+    <div class="tb-center">
+      <label class="field">
+        <span>布局</span>
+        <select id="layout">
+          <option value="1x1">1 × 1（1 张）</option>
+          <option value="2x2" selected>2 × 2（4 张）</option>
+          <option value="3x3">3 × 3（9 张）</option>
+          <option value="4x4">4 × 4（16 张）</option>
+          <option value="5x5">5 × 5（25 张）</option>
+          <option value="6x6">6 × 6（36 张）</option>
+        </select>
+      </label>
+      <span id="stats" class="stats">未选择目录</span>
+    </div>
 
-    <span id="stats" class="stats">未选择目录</span>
-
-    <div class="spacer"></div>
-
-    <div class="pager">
-      <button id="prev" class="btn icon" type="button" title="上一页（←）" disabled>‹</button>
-      <span id="page-info" class="page-info">0 / 0</span>
-      <button id="next" class="btn icon" type="button" title="下一页（→）" disabled>›</button>
+    <div class="tb-side tb-right">
+      <div class="pager">
+        <button id="prev" class="btn icon" type="button" title="上一页（←）" disabled>‹</button>
+        <span id="page-info" class="page-info">0 / 0</span>
+        <button id="next" class="btn icon" type="button" title="下一页（→）" disabled>›</button>
+      </div>
     </div>
   </header>
 
@@ -45,10 +48,9 @@
   <main id="grid"></main>
 
   <section id="empty" class="empty">
-    <h2 id="empty-title">选择一个 DXF 目录</h2>
-    <p id="empty-text">目录下所有 DXF 会按当前布局平铺预览，点击任意一张可放大查看。</p>
+    <h2 id="empty-title"></h2>
+    <p id="empty-text"></p>
     <button id="pick-empty" class="btn primary lg" type="button">选择目录</button>
-    <p class="hint">推荐使用 Chrome / Edge 浏览器</p>
   </section>
 
   <div id="modal" class="modal hidden">

@@ -27560,8 +27560,7 @@ function renderPage() {
   ui.next.disabled = total === 0 || state.page >= pageCount - 1;
   requestRender();
 }
-async function loadFiles(files, token = ++state.loadToken) {
-  if (token !== state.loadToken) return;
+function resetForLoad() {
   state.items = [];
   state.page = 0;
   closeModal();
@@ -27569,6 +27568,10 @@ async function loadFiles(files, token = ++state.loadToken) {
   ui.empty.classList.add("hidden");
   ui.stats.textContent = "\u89E3\u6790\u4E2D\u2026";
   requestRender();
+}
+async function loadFiles(files, token = ++state.loadToken) {
+  if (token !== state.loadToken) return;
+  resetForLoad();
   if (!files.length) {
     setProgress(null);
     ui.stats.textContent = "\u6CA1\u6709 DXF \u6587\u4EF6";
@@ -27616,6 +27619,7 @@ async function pickDirectory() {
     return;
   }
   const token = ++state.loadToken;
+  resetForLoad();
   setProgress(0, 0);
   const files = [];
   const scan = async (handle, prefix) => {

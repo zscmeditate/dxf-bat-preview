@@ -218,8 +218,8 @@ function renderPage() {
   requestRender();
 }
 
-async function loadFiles(files, token = ++state.loadToken) {
-  if (token !== state.loadToken) return;
+// 清空旧内容，为新一轮加载做准备（先隐藏旧卡片，再显示进度条）
+function resetForLoad() {
   state.items = [];
   state.page = 0;
   closeModal();
@@ -227,6 +227,11 @@ async function loadFiles(files, token = ++state.loadToken) {
   ui.empty.classList.add('hidden');
   ui.stats.textContent = '解析中…';
   requestRender();
+}
+
+async function loadFiles(files, token = ++state.loadToken) {
+  if (token !== state.loadToken) return;
+  resetForLoad();
 
   if (!files.length) {
     setProgress(null);
@@ -285,6 +290,7 @@ async function pickDirectory() {
 
   // 从扫描阶段就持有令牌，防止旧目录的扫描/解析串扰新目录
   const token = ++state.loadToken;
+  resetForLoad();
   setProgress(0, 0);
 
   const files = [];
